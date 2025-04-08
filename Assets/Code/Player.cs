@@ -10,12 +10,9 @@ public class Player : MonoBehaviour {
 
 	public float speed = 7f;
 
-	public blabla b;
-
 	// Start is called once before the first execution of Update after the MonoBehaviour is created
 	void Start() {
 		moveAction = input.currentActionMap.FindAction("Move");
-		b.einbool = true;
 	}
 
 	// Update is called once per frame
