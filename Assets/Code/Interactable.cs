@@ -1,16 +1,34 @@
 using UnityEngine;
+using UnityEngine.Events;
 
-public class Interactable : MonoBehaviour
-{
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
-    {
-        
-    }
+public class Interactable : MonoBehaviour {
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+	//C# Event
+	//public event System.Action OnInteractCS;
+
+	//Unity Event
+	public UnityEvent OnInteract;
+
+	// Start is called once before the first execution of Update after the MonoBehaviour is created
+	void Start() {
+		/* event beispiel
+		//OnInteractCS += blabla;
+		//OnInteractCS -= blabla;
+		//if(OnInteractCS != null)
+		//	OnInteractCS.Invoke(); //invoke = ausführen
+
+		//OnInteract.AddListener(blabla);
+		//OnInteract.RemoveListener(blabla);
+		//OnInteract.Invoke();
+
+		//void blabla() {
+		//}
+		*/
+	}
+
+
+	public void Interact(){
+		OnInteract.Invoke();
+	}
+	
 }

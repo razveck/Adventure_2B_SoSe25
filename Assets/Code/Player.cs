@@ -19,8 +19,20 @@ public class Player : MonoBehaviour {
 	void Start() {
 		moveAction = input.currentActionMap.FindAction("Move");
 		interactAction = input.currentActionMap.FindAction("Interact");
+		//C# event
+		interactAction.performed += OnInteractAction;
 
 		cameraTransform = FindAnyObjectByType<CameraManager>().activeCamera.transform;
+	}
+
+	private void OnDestroy() {
+		interactAction.performed -= OnInteractAction;
+	}
+
+	private void OnInteractAction(InputAction.CallbackContext obj) {
+		if(currentInteractable != null){
+			currentInteractable.Interact();
+		}
 	}
 
 	// Update is called once per frame
@@ -32,14 +44,16 @@ public class Player : MonoBehaviour {
 
 
 		Vector2 moveInput = moveAction.ReadValue<Vector2>();
-		Vector3 direction = new(moveInput.x, 0, moveInput.y);
-		Vector3 move = cameraTransform.TransformDirection(direction);
-		move.y = 0;
-		move.Normalize();
+
+		Vector3 forward = Vector3.ProjectOnPlane(cameraTransform.forward, Vector3.up).normalized;
+		Vector3 right = Vector3.ProjectOnPlane(cameraTransform.right, Vector3.up).normalized;
+
+		//wie viel auf forward + wie viel auf right
+		Vector3 move = forward * moveInput.y + right * moveInput.x;
 
 		if(move != Vector3.zero) {
-			//Lerp = Linear Interpolation
-			transform.forward = Vector3.Lerp(transform.forward, move, 0.1f);
+			//Slerp = Spherical Interpolation
+			transform.forward = Vector3.Slerp(transform.forward, move, 0.1f);
 		}
 
 		CollisionFlags collision = controller.Move(move * Time.deltaTime * speed);
@@ -51,9 +65,8 @@ public class Player : MonoBehaviour {
 		}
 
 
-		if(interactAction.WasPressedThisFrame() && currentInteractable != null){
-
-		}
+		//if(interactAction.WasPressedThisFrame() && currentInteractable != null){
+		//}
 	}
 
 	private void OnTriggerEnter(Collider other) {
