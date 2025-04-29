@@ -225,6 +225,57 @@ MonoBehaviour:
   input: {fileID: 5844250}
   speed: 7
   gravity: 9.8
+--- !u!1 &20175177
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 20175178}
+  - component: {fileID: 20175179}
+  m_Layer: 0
+  m_Name: Dialog1.1.1 Ja
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &20175178
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 20175177}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 84562997}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &20175179
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 20175177}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3b471f7dad100ab47823f06630f66fab, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  text: Kannst du mir bitte helfen?
+  portrait: {fileID: 0}
+  choices:
+  - name: Ja
+    nextLine: {fileID: 0}
+  - name: Nein
+    nextLine: {fileID: 0}
 --- !u!1 &84562995
 GameObject:
   m_ObjectHideFlags: 0
@@ -236,7 +287,7 @@ GameObject:
   - component: {fileID: 84562997}
   - component: {fileID: 84562996}
   m_Layer: 0
-  m_Name: Dialog1 (1)
+  m_Name: Dialog1.1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -254,9 +305,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3b471f7dad100ab47823f06630f66fab, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  text: Hallo, guten Tag
+  text: Kannst du mir bitte helfen?
   portrait: {fileID: 0}
-  choices: []
+  choices:
+  - name: Ja
+    nextLine: {fileID: 0}
+  - name: Nein
+    nextLine: {fileID: 0}
 --- !u!4 &84562997
 Transform:
   m_ObjectHideFlags: 0
@@ -265,12 +320,14 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 84562995}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -31.584158, y: 2.0171795, z: 34.16347}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 0}
+  m_Children:
+  - {fileID: 20175178}
+  - {fileID: 1491440554}
+  m_Father: {fileID: 2091223074}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &330585543
 GameObject:
@@ -591,10 +648,10 @@ MonoBehaviour:
   OnInteract:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 384136924}
-        m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
-        m_MethodName: SetActive
-        m_Mode: 6
+      - m_Target: {fileID: 384136931}
+        m_TargetAssemblyTypeName: NPC, Assembly-CSharp
+        m_MethodName: StartDialog
+        m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -615,7 +672,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3e07ff31c0fd10f42b3c7ff3f5a14139, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  dialog: {fileID: 0}
+  dialog: {fileID: 2091223073}
 --- !u!1 &410087039
 GameObject:
   m_ObjectHideFlags: 0
@@ -812,6 +869,53 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 18.194, y: 226.72, z: 0}
+--- !u!1 &703749302
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 703749304}
+  - component: {fileID: 703749303}
+  m_Layer: 0
+  m_Name: Dialog1.2
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &703749303
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 703749302}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3b471f7dad100ab47823f06630f66fab, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  text: Du willst nichts sagen? Na gut...
+  portrait: {fileID: 0}
+  choices: []
+--- !u!4 &703749304
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 703749302}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 2091223074}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &832575517
 GameObject:
   m_ObjectHideFlags: 0
@@ -2063,6 +2167,53 @@ MeshCollider:
   m_Convex: 0
   m_CookingOptions: 30
   m_Mesh: {fileID: 4887216478360415443, guid: 23f8b0805cb6e7343bdd7256de131880, type: 3}
+--- !u!1 &1491440553
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1491440554}
+  - component: {fileID: 1491440555}
+  m_Layer: 0
+  m_Name: Dialog1.1.2 Nein
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1491440554
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1491440553}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 84562997}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1491440555
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1491440553}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3b471f7dad100ab47823f06630f66fab, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  text: Kannst du mir bitte helfen?
+  portrait: {fileID: 0}
+  choices: []
 --- !u!1 &1584208763
 GameObject:
   m_ObjectHideFlags: 0
@@ -8361,14 +8512,10 @@ MonoBehaviour:
   text: Hallo, guten Tag
   portrait: {fileID: 0}
   choices:
-  - name: 
-    nextLine: {fileID: 0}
-  - name: 
-    nextLine: {fileID: 0}
-  - name: 
-    nextLine: {fileID: 0}
-  - name: 
-    nextLine: {fileID: 0}
+  - name: Hallo
+    nextLine: {fileID: 84562996}
+  - name: (Nichts sagen)
+    nextLine: {fileID: 703749303}
 --- !u!4 &2091223074
 Transform:
   m_ObjectHideFlags: 0
@@ -8381,7 +8528,9 @@ Transform:
   m_LocalPosition: {x: -31.584158, y: 2.0171795, z: 34.16347}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children: []
+  m_Children:
+  - {fileID: 84562997}
+  - {fileID: 703749304}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1660057539 &9223372036854775807
@@ -8406,4 +8555,3 @@ SceneRoots:
   - {fileID: 384136928}
   - {fileID: 1584208769}
   - {fileID: 2091223074}
-  - {fileID: 84562997}
