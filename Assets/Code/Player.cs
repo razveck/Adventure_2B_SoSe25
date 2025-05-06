@@ -74,6 +74,7 @@ public class Player : MonoBehaviour {
 		//wenn 'other' kein Interactable Component hat, ist das Ergebnis 'null'
 		if(interactable != null){
 			currentInteractable = interactable;
+			interactable.SetHighlight(true);
 		}
 	}
 
@@ -81,6 +82,7 @@ public class Player : MonoBehaviour {
 		Interactable interactable = other.GetComponent<Interactable>();
 		if(interactable != null){
 			currentInteractable = null;
+			interactable.SetHighlight(false);
 		}
 	}
 }

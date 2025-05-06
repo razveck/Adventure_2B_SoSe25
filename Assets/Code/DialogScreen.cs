@@ -1,5 +1,7 @@
 using TMPro;
 using UnityEngine;
+using UnityEngine.EventSystems;
+using UnityEngine.InputSystem;
 using UnityEngine.UI;
 
 public class DialogScreen : MonoBehaviour {
@@ -13,6 +15,11 @@ public class DialogScreen : MonoBehaviour {
 	public Button[] choiceButtons;
 	public Button continueButton;
 
+	public PlayerInput input;
+
+	private void Start() {
+		gameObject.SetActive(false);
+	}
 
 	public void ShowDialog(DialogLine dialog, NPC npc) {
 		currentDialog = dialog;
@@ -28,14 +35,19 @@ public class DialogScreen : MonoBehaviour {
 				choiceButtons[i].GetComponentInChildren<TextMeshProUGUI>().text = dialog.choices[i].name;
 				//choiceButtons[i].transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = dialog.choices[i].name;
 			}
+			EventSystem.current.SetSelectedGameObject(choiceButtons[0].gameObject);
 		} else {
 			continueButton.gameObject.SetActive(true);
 			for(int i = 0; i < choiceButtons.Length; i++) {
 				choiceButtons[i].gameObject.SetActive(false);
 			}
+			
+			EventSystem.current.SetSelectedGameObject(continueButton.gameObject);
 		}
 
 		gameObject.SetActive(true);
+
+		input.SwitchCurrentActionMap("UI");
 	}
 
 	public void EndDialog() {
@@ -45,6 +57,8 @@ public class DialogScreen : MonoBehaviour {
 			choiceButtons[i].gameObject.SetActive(false);
 		}
 		continueButton.gameObject.SetActive(false);
+
+		input.SwitchCurrentActionMap("Player");
 	}
 
 	public void SelectChoice(int index) {
