@@ -1,3 +1,4 @@
+using System.Collections;
 using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
@@ -29,6 +30,10 @@ public class DialogScreen : MonoBehaviour {
 		textCharName.text = npc.name;
 		imagePortrait.sprite = dialog.portrait;
 
+		for(int i = 0; i < choiceButtons.Length; i++) {
+			choiceButtons[i].gameObject.SetActive(false);
+		}
+
 		if(dialog.choices != null && dialog.choices.Length > 0) {
 			for(int i = 0; i < dialog.choices.Length; i++) {
 				choiceButtons[i].gameObject.SetActive(true);
@@ -41,7 +46,7 @@ public class DialogScreen : MonoBehaviour {
 			for(int i = 0; i < choiceButtons.Length; i++) {
 				choiceButtons[i].gameObject.SetActive(false);
 			}
-			
+
 			EventSystem.current.SetSelectedGameObject(continueButton.gameObject);
 		}
 
@@ -53,15 +58,22 @@ public class DialogScreen : MonoBehaviour {
 	public void EndDialog() {
 		gameObject.SetActive(false);
 
-		for(int i = 0; i < choiceButtons.Length; i++) {
-			choiceButtons[i].gameObject.SetActive(false);
-		}
+		
 		continueButton.gameObject.SetActive(false);
 
 		input.SwitchCurrentActionMap("Player");
 	}
 
+	public void Continue() {
+		if(currentDialog.defaultNextLine != null) {
+			ShowDialog(currentDialog.defaultNextLine, currentNPC);
+		} else {
+			EndDialog();
+		}
+	}
+
 	public void SelectChoice(int index) {
+		currentDialog.choices[index].onSelected.Invoke();
 		ShowDialog(currentDialog.choices[index].nextLine, currentNPC);
 	}
 
