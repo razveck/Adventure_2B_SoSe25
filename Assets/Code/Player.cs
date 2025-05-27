@@ -8,9 +8,11 @@ public class Player : MonoBehaviour {
 	InputAction interactAction;
 	float ySpeed;
 	Interactable currentInteractable;
+	public Vector3 move;
 
 	public CharacterController controller;
 	public PlayerInput input;
+	public Animator animator;
 
 	public float speed = 7f;
 	public float gravity = 9.8f;
@@ -30,8 +32,9 @@ public class Player : MonoBehaviour {
 	}
 
 	private void OnInteractAction(InputAction.CallbackContext obj) {
-		if(currentInteractable != null){
+		if(currentInteractable != null) {
 			currentInteractable.Interact();
+			animator.SetTrigger("interact");
 		}
 	}
 
@@ -44,17 +47,22 @@ public class Player : MonoBehaviour {
 
 
 		Vector2 moveInput = moveAction.ReadValue<Vector2>();
+		if(moveInput != Vector2.zero) {
 
-		Vector3 forward = Vector3.ProjectOnPlane(cameraTransform.forward, Vector3.up).normalized;
-		Vector3 right = Vector3.ProjectOnPlane(cameraTransform.right, Vector3.up).normalized;
+			Vector3 forward = Vector3.ProjectOnPlane(cameraTransform.forward, Vector3.up).normalized;
+			Vector3 right = Vector3.ProjectOnPlane(cameraTransform.right, Vector3.up).normalized;
 
-		//wie viel auf forward + wie viel auf right
-		Vector3 move = forward * moveInput.y + right * moveInput.x;
+			//wie viel auf forward + wie viel auf right
+			move = forward * moveInput.y + right * moveInput.x;
 
-		if(move != Vector3.zero) {
-			//Slerp = Spherical Interpolation
-			transform.forward = Vector3.Slerp(transform.forward, move, 0.1f);
+			if(move != Vector3.zero) {
+				//Slerp = Spherical Interpolation
+				transform.forward = Vector3.Slerp(transform.forward, move, 0.1f);
+			}
+		} else {
+			move *= 0.5f;
 		}
+
 
 		CollisionFlags collision = controller.Move(move * Time.deltaTime * speed);
 		if(collision != CollisionFlags.Below) {
@@ -64,6 +72,8 @@ public class Player : MonoBehaviour {
 			ySpeed = 0;
 		}
 
+		animator.SetFloat("speed", move.magnitude * speed);
+
 
 		//if(interactAction.WasPressedThisFrame() && currentInteractable != null){
 		//}
@@ -72,7 +82,7 @@ public class Player : MonoBehaviour {
 	private void OnTriggerEnter(Collider other) {
 		Interactable interactable = other.GetComponent<Interactable>();
 		//wenn 'other' kein Interactable Component hat, ist das Ergebnis 'null'
-		if(interactable != null){
+		if(interactable != null) {
 			currentInteractable = interactable;
 			interactable.SetHighlight(true);
 		}
@@ -80,7 +90,7 @@ public class Player : MonoBehaviour {
 
 	private void OnTriggerExit(Collider other) {
 		Interactable interactable = other.GetComponent<Interactable>();
-		if(interactable != null){
+		if(interactable != null) {
 			currentInteractable = null;
 			interactable.SetHighlight(false);
 		}
