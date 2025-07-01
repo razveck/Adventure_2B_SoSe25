@@ -9,6 +9,7 @@ public class DialogScreen : MonoBehaviour {
 
 	DialogLine currentDialog;
 	NPC currentNPC;
+	Coroutine typewriter;
 
 	public TextMeshProUGUI textDialog;
 	public TextMeshProUGUI textCharName;
@@ -26,7 +27,8 @@ public class DialogScreen : MonoBehaviour {
 		currentDialog = dialog;
 		currentNPC = npc;
 
-		textDialog.text = dialog.text;
+		
+
 		textCharName.text = npc.name;
 		imagePortrait.sprite = dialog.portrait;
 
@@ -52,8 +54,35 @@ public class DialogScreen : MonoBehaviour {
 
 		gameObject.SetActive(true);
 
+		//Entweder oder
+		//StopAllCoroutines();
+		if(typewriter != null)
+			StopCoroutine(typewriter);
+
+		typewriter = StartCoroutine(TypewriterCoroutine(dialog.text));
+
 		input.SwitchCurrentActionMap("UI");
 	}
+
+	IEnumerator TypewriterCoroutine(string text){
+		textDialog.text = text;
+		textDialog.maxVisibleCharacters = 0;
+
+		for(int i = 0; i < text.Length; i++) {
+			//nicht-optimal
+			//textDialog.text = text.Substring(0, i);
+			textDialog.maxVisibleCharacters = i;
+			yield return new WaitForSeconds(0.01f);
+		}
+		textDialog.maxVisibleCharacters = 9999999;
+
+
+
+	}
+
+
+
+
 
 	public void EndDialog() {
 		gameObject.SetActive(false);
